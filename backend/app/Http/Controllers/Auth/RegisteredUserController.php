@@ -34,7 +34,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Removing auto-login
+        // Auth::login($user);
 
         return response()->noContent();
     }

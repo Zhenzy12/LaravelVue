@@ -4,23 +4,21 @@ import router from "./router.js";
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
-  withXSRFToken: true,
-});
+  withXSRFToken: true
+})
 
 // axiosClient.interceptors.request.use(config => {
 //   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
 // })
 
-axiosClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    if (error.response && error.response.status === 401) {
-      router.push({ name: "Login" });
-    }
-    throw error;
+axiosClient.interceptors.response.use((response) => {
+  return response;
+}, error => {
+  if (error.response && error.response.status === 401) {
+    router.push({name: 'Login'});
   }
-);
 
-export default axiosClient;
+  throw error;
+})
+
+export default axiosClient
