@@ -57,6 +57,9 @@
                   </MenuItems>
                 </transition>
               </Menu>
+              <button @click="themeStore.toggleTheme" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                Toggle Theme
+              </button>
             </div>
           </div>
           <div class="-mr-2 flex md:hidden">
@@ -113,8 +116,10 @@ import axiosClient from "../axios.js";
 import router from "../router.js";
 import useUserStore from "../store/user.js";
 import { computed } from "vue";
+import { useThemeStore } from '../stores/themeStore';
 
 const userStore = useUserStore()
+const themeStore = useThemeStore();
 
 const user = computed(() => userStore.user)
 

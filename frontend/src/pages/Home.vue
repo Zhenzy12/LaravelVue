@@ -1,12 +1,19 @@
 <script setup>
 import { PhotoIcon } from '@heroicons/vue/24/solid'
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import axiosClient from "../axios.js";
 import router from "../router.js";
+import { useThemeStore } from '../stores/themeStore';
+
+const themeStore = useThemeStore();
 
 const data = ref({
   image: null,
   label: ''
+})
+
+const bgClass = computed(() => {
+  return themeStore.isDarkMode ? 'bg-gray-900' : 'bg-gray-100';
 })
 
 function submit() {
@@ -22,10 +29,10 @@ function submit() {
 </script>
 
 <template>
-  <div>
-    <header class="bg-white shadow">
+  <div :class="bgClass">
+    <header :class="themeStore.isDarkMode ? 'bg-gray-900' : 'bg-white'">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        <h1 class="text-3xl font-bold tracking-tight" :class="themeStore.isDarkMode ? 'text-gray-100' : 'text-gray-900'">
           Upload
         </h1>
       </div>
@@ -34,11 +41,11 @@ function submit() {
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <form @submit.prevent="submit">
           <div class="mb-4">
-            <label for="cover-photo" class="block text-sm/6 font-medium text-gray-900">Image</label>
+            <label for="cover-photo" class="block text-sm/6 font-medium" :class="themeStore.isDarkMode ? 'text-gray-100' : 'text-gray-900'">Image</label>
             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
               <div class="text-center">
                 <PhotoIcon class="mx-auto size-12 text-gray-300" aria-hidden="true" />
-                <div class="mt-4 flex text-sm/6 text-gray-600">
+                <div class="mt-4 flex text-sm/6" :class="themeStore.isDarkMode ? 'text-gray-400' : 'text-gray-600'">
                   <label for="file-upload"
                     class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                     <span>Upload a file</span>
